@@ -170,7 +170,7 @@ def alignment():
         3:  "Evil",
     }
     alignment2 = str(switch.get(alignment_num, "null"))
-    return alignment1 + alignment2
+    return alignment1 + " " + alignment2
 
 classname= char_class(class_num)
 race = race(race_num)
