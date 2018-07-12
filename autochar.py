@@ -13,7 +13,7 @@ d12 = random.randint(1,13)
 d20 = random.randint(1,21)
 d100 = random.randint(1,101)
 
-race_num = random.randint(1,10)
+race_num = random.randint(1,9)
 class_num = random.randint(1,12)
 parser = argparse.ArgumentParser()
 parser.add_argument('-c','--name',action ='store')
@@ -23,19 +23,19 @@ level = 1
 
 #basic set of dice
 def d4():
-    return random.randint(1,5)
+    return random.randint(1,4)
 def d6():
-    return random.randint(1,7)
+    return random.randint(1,6)
 def d8():
-    return random.randint(1,9)
+    return random.randint(1,8)
 def d10():
-    return random.randint(1,11)
+    return random.randint(1,10)
 def d12():
-    return random.randint(1,13)
+    return random.randint(1,12)
 def d20():
-    return random.randint(1,21)
+    return random.randint(1,20)
 def d100():
-    return random.randint(1,101)
+    return random.randint(1,100)
 
 def char_class(class_num):
     switch = {
@@ -122,10 +122,10 @@ def char_feature(classname,level):
 def stats(race):
     statlist = []
     for x in range(6):
-        roll1 = random.randint(1,7)
-        roll2 = random.randint(1,7)
-        roll3 = random.randint(1,7)
-        roll4 = random.randint(1,7)
+        roll1 = random.randint(1,6)
+        roll2 = random.randint(1,6)
+        roll3 = random.randint(1,6)
+        roll4 = random.randint(1,6)
         min = roll1
         if(roll2 < min):
             min = roll2
@@ -170,14 +170,17 @@ def alignment():
         3:  "Evil",
     }
     alignment2 = str(switch.get(alignment_num, "null"))
-    return alignment1 + " " + alignment2
+    alignment = alignment1 + " " + alignment2
+    if (alignment == "Neutral Neutral"):
+        alignment = "True Neutral"
+    return alignment
 
 classname= char_class(class_num)
 race = race(race_num)
 r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
 d_race = json.loads(r_race.content.decode('utf-8'))
 print (race)
-
+print ("Size: " + str(d_race["size"]))
 print ("Class: " + classname)
 print("Alignment: " + alignment())
 char_feature(classname,level)
