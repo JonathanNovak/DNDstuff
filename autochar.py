@@ -111,7 +111,7 @@ def char_feature(classname,level):
     r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
     feat = json.loads(r_feat.content.decode('utf-8'))
 
-    while(str(feat["level"]) > str(level)):
+    while(int(feat["level"]) > int(level)):
         classfeat=random.randint(class_f_range,class_f_range2)
         r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
         feat = json.loads(r_feat.content.decode('utf-8'))
@@ -122,10 +122,10 @@ def char_feature(classname,level):
 def stats():
     statlist = []
     for x in range(6):
-        roll1 = random.randint(1,6)
-        roll2 = random.randint(1,6)
-        roll3 = random.randint(1,6)
-        roll4 = random.randint(1,6)
+        roll1 = random.randint(1,7)
+        roll2 = random.randint(1,7)
+        roll3 = random.randint(1,7)
+        roll4 = random.randint(1,7)
         min = roll1
         if(roll2 < min):
             min = roll2
