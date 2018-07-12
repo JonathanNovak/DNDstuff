@@ -13,11 +13,12 @@ d12 = random.randint(1,13)
 d20 = random.randint(1,21)
 d100 = random.randint(1,101)
 
+race_num = random.randint(1,10)
+class_num = random.randint(1,12)
 parser = argparse.ArgumentParser()
 parser.add_argument('-c','--name',action ='store')
 args = parser.parse_args()
 print("auto character generator for dnd 5e")
-class_num = random.randint(1,12)
 level = 1
 
 #basic set of dice
@@ -52,6 +53,20 @@ def char_class(class_num):
         12: "Wizard",
     }
     return switch.get(class_num, "null")
+
+def race(race_num):
+    switch = {
+        1:  "Human",
+        2:  "Gnome",
+        3:  "Dwarf",
+        4:  "Halfling",
+        5:  "Dragonborn",
+        6:  "Elf",
+        7:  "Half-Elf",
+        8:  "Half-orc",
+        9:  "Tiefling"
+    }
+    return switch.get(race_num, "null")
 
 def char_feature(classname,level):
     if(classname == "Barbarian"):
@@ -107,10 +122,10 @@ def char_feature(classname,level):
 def stats():
     statlist = []
     for x in range(6):
-        roll1 = random.randint(1,7)
-        roll2 = random.randint(1,7)
-        roll3 = random.randint(1,7)
-        roll4 = random.randint(1,7)
+        roll1 = random.randint(1,6)
+        roll2 = random.randint(1,6)
+        roll3 = random.randint(1,6)
+        roll4 = random.randint(1,6)
         min = roll1
         if(roll2 < min):
             min = roll2
@@ -135,10 +150,14 @@ def otherstats(classname,level):
         levelhp = basehp
         for i in range(level-1):
             levelhp += random.randint(1,basehp)
+        return levelhp
     else:
         return basehp
+
 classname= char_class(class_num)
-print (char_class(class_num))
+race = race(race_num)
+print (race)
+print (classname)
 char_feature(classname,level)
 print (stats())
 print ("HP: "+ str(otherstats(classname,level)))
