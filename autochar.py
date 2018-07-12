@@ -3,6 +3,7 @@
 import random
 import requests
 import json
+import argparse
 
 d4 = random.randint(1,5)
 d6 = random.randint(1,7)
@@ -12,9 +13,11 @@ d12 = random.randint(1,13)
 d20 = random.randint(1,21)
 d100 = random.randint(1,101)
 
-
+parser = argparse.ArgumentParser()
+parser.add_argument('-c','--name',action ='store')
+args = parser.parse_args()
 print("auto character generator for dnd 5e")
-class_num = random.randint(1,13)
+class_num = random.randint(1,12)
 level = 1
 
 def char_class(class_num):
@@ -85,14 +88,27 @@ def char_feature(classname,level):
     print ("FEAT: " + str(feat["name"]))
     print ("desc: " + str(feat["desc"]))
 
-def stats(class):
+def stats():
+    statlist = []
     for x in range(6):
         roll1 = random.randint(1,7)
         roll2 = random.randint(1,7)
         roll3 = random.randint(1,7)
-        
+        roll4 = random.randint(1,7)
+        min = roll1
+        if(roll2 < min):
+            min = roll2
+        if(roll3 < min):
+            min = roll3
+        if(roll4 < min):
+            min = roll4
+        stat = roll1 + roll2 + roll3 + roll4 - min
+        statlist.append(stat)
+    return statlist
+
 classname= char_class(class_num)
 print (char_class(class_num))
 char_feature(classname,level)
+print (stats())
 r_spells = requests.get('http://dnd5eapi.co/api/spells/1')
 data = json.loads(r_spells.content.decode('utf-8'))
