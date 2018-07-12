@@ -3,7 +3,6 @@
 import random
 import requests
 import json
-import argparse
 
 d4 = random.randint(1,5)
 d6 = random.randint(1,7)
@@ -13,9 +12,7 @@ d12 = random.randint(1,13)
 d20 = random.randint(1,21)
 d100 = random.randint(1,101)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-c','--name',action ='store')
-args = parser.parse_args()
+
 print("auto character generator for dnd 5e")
 class_num = random.randint(1,13)
 level = 1
