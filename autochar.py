@@ -20,6 +20,22 @@ print("auto character generator for dnd 5e")
 class_num = random.randint(1,12)
 level = 1
 
+#basic set of dice
+def d4():
+    return random.randint(1,5)
+def d6():
+    return random.randint(1,7)
+def d8():
+    return random.randint(1,9)
+def d10():
+    return random.randint(1,11)
+def d12():
+    return random.randint(1,13)
+def d20():
+    return random.randint(1,21)
+def d100():
+    return random.randint(1,101)
+
 def char_class(class_num):
     switch = {
         1:  "Barbarian",
@@ -106,9 +122,25 @@ def stats():
         statlist.append(stat)
     return statlist
 
+def otherstats(classname,level):
+    if (classname == "Barbarian"):
+        basehp = 12
+    elif(classname == "Fighter" or classname == "Paladin" or classname == "Ranger"):
+        basehp = 10
+    elif(classname == "Bard" or classname == "Cleric" or classname == "Druid" or classname == "Monk" or classname == "Rogue" or classname == "Warlock"):
+        basehp = 8
+    elif(classname == "Sorcerer" or classname == "Wizard"):
+        basehp = 6
+    if(level > 1):
+        levelhp = basehp
+        for i in range(level-1):
+            levelhp += random.randint(1,basehp)
+    else:
+        return basehp
 classname= char_class(class_num)
 print (char_class(class_num))
 char_feature(classname,level)
 print (stats())
+print ("HP: "+ str(otherstats(classname,level)))
 r_spells = requests.get('http://dnd5eapi.co/api/spells/1')
 data = json.loads(r_spells.content.decode('utf-8'))
