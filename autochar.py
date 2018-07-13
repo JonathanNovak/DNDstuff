@@ -4,6 +4,8 @@ import random
 import requests
 import json
 import argparse
+from equipment import *
+from spells import *
 
 d4 = random.randint(1,5)
 d6 = random.randint(1,7)
@@ -104,14 +106,14 @@ def char_feature(classname,level):
         class_f_range2 = 400
     elif(classname == "Wizard"):
         class_f_range = 400
-        class_f_range2 = 417
+        class_f_range2 = 416
 
     classfeat=random.randint(class_f_range,class_f_range2)
 
     r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
     d_feat = json.loads(r_feat.content.decode('utf-8'))
 
-    while(int(d_feat["level"]) > int(level)):
+    while(int(d_feat["level"]) > level):
         classfeat=random.randint(class_f_range,class_f_range2)
         r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
         d_feat = json.loads(r_feat.content.decode('utf-8'))
@@ -179,12 +181,19 @@ classname= char_class(class_num)
 race = race(race_num)
 r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
 d_race = json.loads(r_race.content.decode('utf-8'))
+
+
 print (race)
 print ("Size: " + str(d_race["size"]))
 print ("Class: " + classname)
 print("Alignment: " + alignment())
-char_feature(classname,level)
 print (stats(race_num))
 print ("HP: "+ str(otherstats(classname,level)))
+char_feature(classname,level)
+start_proficiencies(race_num)
+if(class_num == 12):
+    spell_school()
+
+
 r_spells = requests.get('http://dnd5eapi.co/api/spells/1')
 data = json.loads(r_spells.content.decode('utf-8'))
