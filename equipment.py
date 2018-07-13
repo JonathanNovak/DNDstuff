@@ -63,5 +63,5 @@ def gold(class_num):
     elif(class_num == 12):
         for i in range(4):
             money += random.randint(1,4)
-            money = money * 10
+        money = money * 10
     return money
