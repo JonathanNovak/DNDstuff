@@ -202,6 +202,32 @@ def alignment():
         alignment = "True Neutral"
     return alignment
 
+def bonus(stat):
+        switch = {
+            1:  "-5",
+            2:  "-4",
+            3:  "-4",
+            4:  "-3",
+            5:  "-3",
+            6:  "-2",
+            7:  "-2",
+            8:  "-1",
+            9:  "-1",
+            10: "+0",
+            11: "+0",
+            12: "+1",
+            13: "+1",
+            14: "+2",
+            15: "+2",
+            16: "+3",
+            17: "+3",
+            18: "+4",
+            19: "+4",
+            20: "+5"
+        }
+        return switch.get(stat, "null")
+
+
 classname= char_class(class_num)
 race = race(race_num)
 r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
@@ -222,7 +248,7 @@ print ("Stats: str:" + str(strength) + " dex: " + str(dex) + " con: " + str(con)
 print ("HP: "+ str(otherstats(classname,level)))
 print ("Gold: " + str(gold(class_num)))
 print ("Background: " + background(back_num))
-skills(strength,dex,con,intel,wis,cha,back_num)
+skills(bonus(strength),bonus(dex),bonus(con),bonus(intel),bonus(wis),bonus(cha),back_num)
 char_feature(classname,level)
 print ("Proficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
