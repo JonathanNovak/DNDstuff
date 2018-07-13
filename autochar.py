@@ -138,12 +138,22 @@ def char_feature(classname,level):
     r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
     d_feat = json.loads(r_feat.content.decode('utf-8'))
 
-    while(int(d_feat["level"]) > level):
-        classfeat=random.randint(class_f_range,class_f_range2)
-        r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
-        d_feat = json.loads(r_feat.content.decode('utf-8'))
+    if "level" in d_feat:
+        if not d_feat["level"]:
+            char_feature(classname, level)
+        while(int(d_feat["level"]) > level):
+            classfeat=random.randint(class_f_range,class_f_range2)
+            r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
+            d_feat = json.loads(r_feat.content.decode('utf-8'))
+            while not d_feat:
+                print(classfeat)
+                classfeat=random.randint(class_f_range,class_f_range2)
+                r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
+                d_feat = json.loads(r_feat.content.decode('utf-8'))
+    else:
+        char_feature(classname, level)
 
-    print ("FEAT: " + str(d_feat["name"]))
+    print ("\nFEAT: " + str(d_feat["name"]))
     print ("desc: " + str(d_feat["desc"]))
 
 def stats(race):
@@ -247,10 +257,10 @@ print ("Alignment: " + alignment())
 print ("Stats: str:" + str(strength) + " dex: " + str(dex) + " con: " + str(con) + " int: " + str(intel) + " wis: " + str(wis) + " cha: " + str(cha) )
 print ("HP: "+ str(otherstats(classname,level)))
 print ("Gold: " + str(gold(class_num)))
-print ("Background: " + background(back_num))
+print ("Background: " + background(back_num) + "\n")
 skills(bonus(strength),bonus(dex),bonus(con),bonus(intel),bonus(wis),bonus(cha),back_num)
 char_feature(classname,level)
-print ("Proficiencies: " + str(start_proficiencies(race_num)))
+print ("\nProficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
 if(class_num == 12):
     spell_school()
