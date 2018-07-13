@@ -1,3 +1,6 @@
+#Class to manage spells
+#Author: Jonathan Novak
+
 import random
 import requests
 import json
