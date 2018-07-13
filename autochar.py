@@ -6,6 +6,7 @@ import json
 import argparse
 from equipment import *
 from spells import *
+from skills import *
 
 d4 = random.randint(1,5)
 d6 = random.randint(1,7)
@@ -20,6 +21,7 @@ class_num = random.randint(1,12)
 parser = argparse.ArgumentParser()
 parser.add_argument('-c','--name',action ='store')
 args = parser.parse_args()
+back_num = random.randint(1,18)
 print("auto character generator for dnd 5e")
 level = 1
 
@@ -69,6 +71,29 @@ def race(race_num):
         9:  "Tiefling"
     }
     return switch.get(race_num, "null")
+
+def background(back_num):
+    switch = {
+        1:  "Acolyte",
+        2:  "Charlatan",
+        3:  "Criminal",
+        4:  "Entertainer",
+        5:  "Folk Hero",
+        6:  "Gladiator",
+        7:  "Guild Artisan",
+        8:  "Guild Merchant",
+        9:  "Hermit",
+        10: "Knight",
+        11: "Noble",
+        12: "Outlander",
+        13: "Pirate",
+        14: "Sage",
+        15: "Sailor",
+        16: "Soldier",
+        17: "Spy",
+        18: "Urchin"
+    }
+    return switch.get(back_num, "null")
 
 def char_feature(classname,level):
     if(classname == "Barbarian"):
@@ -182,14 +207,22 @@ race = race(race_num)
 r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
 d_race = json.loads(r_race.content.decode('utf-8'))
 
+strength = stats(race_num)[0]
+dex = stats(race_num)[1]
+con = stats(race_num)[2]
+intel = stats(race_num)[3]
+wis = stats(race_num)[4]
+cha = stats(race_num)[5]
 
-print (race)
+print ("Race: " + race)
 print ("Size: " + str(d_race["size"]))
 print ("Class: " + classname)
-print("Alignment: " + alignment())
-print (stats(race_num))
+print ("Alignment: " + alignment())
+print ("Stats: str:" + str(strength) + " dex: " + str(dex) + " con: " + str(con) + " int: " + str(intel) + " wis: " + str(wis) + " cha: " + str(cha) )
 print ("HP: "+ str(otherstats(classname,level)))
 print ("Gold: " + str(gold(class_num)))
+print ("Background: " + background(back_num))
+skills(strength,dex,con,intel,wis,cha,back_num)
 char_feature(classname,level)
 print ("Proficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
