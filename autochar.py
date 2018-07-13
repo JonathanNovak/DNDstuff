@@ -189,8 +189,10 @@ print ("Class: " + classname)
 print("Alignment: " + alignment())
 print (stats(race_num))
 print ("HP: "+ str(otherstats(classname,level)))
+print ("Gold: " + str(gold(class_num)))
 char_feature(classname,level)
-start_proficiencies(race_num)
+print ("Proficiencies: " + str(start_proficiencies(race_num)))
+print ("Traits: " + str(traits(race_num)))
 if(class_num == 12):
     spell_school()
 
