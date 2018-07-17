@@ -263,7 +263,7 @@ skills(bonus(strength),bonus(dex),bonus(con),bonus(intel),bonus(wis),bonus(cha),
 char_feature(classname,level)
 print ("\nProficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
-if(class_num == 12):
+if(class_num == 12 and level >= 3):
     spell_school()
 
 
