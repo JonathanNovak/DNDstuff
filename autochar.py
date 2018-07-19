@@ -237,11 +237,24 @@ def bonus(stat):
         }
         return switch.get(stat, "null")
 
+def sex():
+    random_sex = random.randint(1,2)
+    if(random_sex == 1):
+        return "Male"
+    else:
+        return "Female"
+
+r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
+d_race = json.loads(r_race.content.decode('utf-8'))
 
 classname= char_class(class_num)
 race = race(race_num)
-r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
-d_race = json.loads(r_race.content.decode('utf-8'))
+sex = sex()
+size = str(d_race["size"])
+alignment = alignment()
+hit_points = otherstats(classname,level)
+gold = gold(class_num)
+background = background(back_num)
 
 strength = stats(race_num)[0]
 dex = stats(race_num)[1]
@@ -251,19 +264,20 @@ wis = stats(race_num)[4]
 cha = stats(race_num)[5]
 
 print ("Race: " + race)
-print ("Size: " + str(d_race["size"]))
+print ("Sex: " + sex)
+print ("Size: " + size)
 print ("Class: " + classname)
-print ("Alignment: " + alignment())
+print ("Alignment: " + alignment)
 print ("Stats: str:" + str(strength) + " dex: " + str(dex) + " con: " + str(con) + " int: " + str(intel) + " wis: " + str(wis) + " cha: " + str(cha) )
-print ("HP: "+ str(otherstats(classname,level)))
-print ("Gold: " + str(gold(class_num)))
-print ("Background: " + background(back_num) + "\n")
+print ("HP: "+ str(hit_points))
+print ("Gold: " + str(gold))
+print ("Background: " + background + "\n")
 print("Skills:")
 skills(bonus(strength),bonus(dex),bonus(con),bonus(intel),bonus(wis),bonus(cha),back_num)
 char_feature(classname,level)
 print ("\nProficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
-if(class_num == 12 and level >= 3):
+if(class_num == 12 and level == 3):
     spell_school()
 
 
