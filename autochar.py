@@ -171,7 +171,26 @@ def stats(race):
         if(roll4 < min):
             min = roll4
         stat = roll1 + roll2 + roll3 + roll4 - min
+        if(race == 4):
+            stat += 1
         statlist.append(stat)
+    if(race == 1):
+        statlist[2] += 2
+    if(race == 2):
+        statlist[1] += 2
+    if(race == 3):
+        statlist[1] += 2
+    if(race == 5):
+        statlist[0] += 2
+        statlist[5] += 1
+    if(race == 6):
+        statlist[3] += 2
+    if(race == 8):
+        statlist[0] += 2
+        statlist[2] += 1
+    if(race == 9):
+        statlist[5] += 2
+        statlist[3] += 1
     return statlist
 
 def otherstats(classname,level):
@@ -255,13 +274,15 @@ alignment = alignment()
 hit_points = otherstats(classname,level)
 gold = gold(class_num)
 background = background(back_num)
+stats = stats(race_num)
 
-strength = stats(race_num)[0]
-dex = stats(race_num)[1]
-con = stats(race_num)[2]
-intel = stats(race_num)[3]
-wis = stats(race_num)[4]
-cha = stats(race_num)[5]
+
+strength = stats[0]
+dex = stats[1]
+con = stats[2]
+intel = stats[3]
+wis = stats[4]
+cha = stats[5]
 
 print ("Race: " + race)
 print ("Sex: " + sex)
