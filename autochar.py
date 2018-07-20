@@ -7,6 +7,7 @@ import argparse
 from equipment import *
 from spells import *
 from skills import *
+from levels import *
 
 d4 = random.randint(1,5)
 d6 = random.randint(1,7)
@@ -288,6 +289,7 @@ print ("Race: " + race)
 print ("Sex: " + sex)
 print ("Size: " + size)
 print ("Class: " + classname)
+print ("Level: " + str(level))
 print ("Alignment: " + alignment)
 print ("Stats: str:" + str(strength) + " dex: " + str(dex) + " con: " + str(con) + " int: " + str(intel) + " wis: " + str(wis) + " cha: " + str(cha) )
 print ("HP: "+ str(hit_points))
@@ -298,6 +300,7 @@ skills(bonus(strength),bonus(dex),bonus(con),bonus(intel),bonus(wis),bonus(cha),
 char_feature(classname,level)
 print ("\nProficiencies: " + str(start_proficiencies(race_num)))
 print ("Traits: " + str(traits(race_num)))
+level_display(str(classname),level)
 if(class_num == 12 and level == 3):
     spell_school()
 
