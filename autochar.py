@@ -4,6 +4,7 @@ import random
 import requests
 import json
 import argparse
+import re
 from equipment import *
 from spells import *
 from skills import *
@@ -151,6 +152,7 @@ def char_feature(classname,level):
                 classfeat=random.randint(class_f_range,class_f_range2)
                 r_feat = requests.get('http://www.dnd5eapi.co/api/features/%s'%(str(classfeat)))
                 d_feat = json.loads(r_feat.content.decode('utf-8'))
+
     else:
         char_feature(classname, level)
 
@@ -267,7 +269,7 @@ def sex():
 r_race = requests.get('http://www.dnd5eapi.co/api/races/%s'%(str(race_num)))
 d_race = json.loads(r_race.content.decode('utf-8'))
 
-classname= char_class(class_num)
+classname = char_class(class_num)
 race = race(race_num)
 sex = sex()
 size = str(d_race["size"])
@@ -276,6 +278,9 @@ hit_points = otherstats(classname,level)
 gold = gold(class_num)
 background = background(back_num)
 stats = stats(race_num)
+features = level_display(str(classname),level)
+features = features.split(",")
+
 
 
 strength = stats[0]
